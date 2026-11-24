@@ -7,9 +7,9 @@
 export const VAULT_CONFIG = {
   kdf: "PBKDF2-SHA256",
   iterations: 200000,
-  salt: "u9da/RA+Nmft10lx4SJ59w==",
-  iv: "FuUR1mbNs6P4KePM",
-  ciphertext: "Qme9dgG2inHqRU76xEQCH3oO0NNuTcMPVeBXLxiA9quwyl93QBQXMcuyh2uEY9QQFwDgb0I="
+  salt: "J5BWN+zvrybRadibtgoa0g==",
+  iv: "WGoHfNXPANXK+dDC",
+  ciphertext: "oHkKlMzT7x73iOnuyZAcMVKYl18hrYa4JJGGXK4FiNdjSwxTEhL+aytDrWaXKW0iKHl1foP2kVGEvywhI4nm5/FhATVB8ITlP3B/ZLsA3gQRyCFembCcIgcxzVyjVcXy6+W+V2LdDMHMaiQjxrTAHOpZqzhFqyP3auBxLimh02oCGEIzVKPokxU/Oe5Ad2JEZKoVS0XAU9HaXumPAZnCZuO41fFNZ5jtxd16LGPTtLOEvY9xApkXxgeRg9E+PO9Ta5e5CP2E6Ajd"
 };
 
 const SESSION_KEY = "ostrich_team_session_v1";
