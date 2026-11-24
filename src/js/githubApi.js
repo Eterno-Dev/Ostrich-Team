@@ -4,57 +4,102 @@
  * - Modo Local/Demo: persiste en localStorage con datos iniciales listos para probar.
  */
 
-const DEMO_STORAGE_KEY = "ostrich_team_demo_projects_v1";
+const DEMO_STORAGE_KEY = "ostrich_team_demo_projects_v2";
 const DATA_PATH = "data/projects.json";
 
 export const DEFAULT_PROJECTS = [
   {
     id: "exp-001",
     code: "EXP-001",
-    title: "Sandstorm Crypt",
+    title: "PvP Tower Defense + Parkour 3D",
     column: "large",
     targetDate: "2027-04",
-    owner: "Pau, Alex",
-    refs: ["Hollow Knight", "Tunic", "Hyper Light Drifter"],
-    pitch: "Aventura isometrica en ruinas enterradas bajo dunas cambiantes. Combate preciso y mapa sin texto.",
-    images: ["./src/assets/images/svg/sample-dune.svg"],
-    updatedAt: "2026-11-20T10:00:00Z"
+    owner: "Ostrich Team",
+    refs: ["Plants vs. Zombies", "Meet Your Maker", "Deckbuilder", "Online PvP"],
+    pitch: "PvP simultaneo al mejor de X puntos: fase 1 en vista isometrica diseñando un mapa cerrado con trampas para el rival; fase 2 en primera persona superando el mapa enemigo (estrategia + parkour/habilidad). Economia de oro por rendimiento (bloquear al rival, tiempo rapido, sin daño) para comprar defensas o mejoras de personaje temporales por ronda. Sistema deckbuilder: eliges 1 de 3 defensas y 1 de 3 mejoras en cada ronda para crear builds con aleatoriedad.",
+    images: [
+      "./src/assets/images/jpg/meet-your-maker.jpg",
+      "./src/assets/images/jpg/plants-vs-zombies.jpg"
+    ],
+    updatedAt: "2026-11-24T17:55:00Z"
   },
   {
     id: "exp-002",
     code: "EXP-002",
-    title: "Folio Gambit",
-    column: "month1",
-    targetDate: "2027-01",
-    owner: "Alex",
-    refs: ["Balatro", "Inscryption"],
-    pitch: "Roguelike de cartas en una mesa de pruebas policiales. Combina pistas para resolver casos en 15 minutos.",
-    images: ["./src/assets/images/svg/sample-cards.svg"],
-    updatedAt: "2026-11-21T15:30:00Z"
+    title: "Clash of Thieves Acelerado",
+    column: "month2",
+    targetDate: "2027-02",
+    owner: "Ostrich Team",
+    refs: ["Clash of Clans", "King of Thieves", "Online PvP"],
+    pitch: "Juego estilo Clash of Clans superacelerado mezclado con King of Thieves: construyes y refuerzas tu base con trampas mientras atacas simultaneamente la base rival enviando tropas en lugar de controlar directamente a un unico personaje.",
+    images: [
+      "./src/assets/images/png/king-of-thieves.png",
+      "./src/assets/images/png/clash-of-clans.png"
+    ],
+    updatedAt: "2026-11-24T17:55:00Z"
   },
   {
     id: "exp-003",
     code: "EXP-003",
-    title: "Greenhouse Post",
-    column: "month2",
-    targetDate: "2027-02",
-    owner: "Sara, Pau",
-    refs: ["A Short Hike", "Dredge"],
-    pitch: "Gestion relajada de una estacion de correo rural con repartos diarios y mejora de vehiculos.",
-    images: ["./src/assets/images/svg/sample-cozy.svg"],
-    updatedAt: "2026-11-22T12:15:00Z"
+    title: "Cooperativo Pixel Art",
+    column: "month1",
+    targetDate: "2027-01",
+    owner: "Ostrich Team",
+    refs: ["Pico Park", "Online Co-op", "Pixel Art"],
+    pitch: "Juego multijugador online de plataformas con estetica pixel art centrado en la cooperacion y coordinacion en equipo.",
+    images: ["./src/assets/images/jpg/pico-park.jpg"],
+    updatedAt: "2026-11-24T17:55:00Z"
   },
   {
     id: "exp-004",
     code: "EXP-004",
-    title: "Noir Signal 99",
+    title: "Defensa de Hordas Tactica",
+    column: "month1",
+    targetDate: "2027-01",
+    owner: "Ostrich Team",
+    refs: ["Plants vs. Zombies", "Sir, We Have an Orc Problem", "Offline"],
+    pitch: "Juego offline de estrategia y defensa donde debes detener hordas de enemigos colocando diferentes unidades y objetos defensivos.",
+    images: ["./src/assets/images/jpg/plants-vs-zombies.jpg"],
+    updatedAt: "2026-11-24T17:55:00Z"
+  },
+  {
+    id: "exp-005",
+    code: "EXP-005",
+    title: "Expansion de Bases y Negocios",
+    column: "month2",
+    targetDate: "2027-03",
+    owner: "Ostrich Team",
+    refs: ["JellyGo", "Estrategia", "Offline"],
+    pitch: "Juego offline de gestion y estrategia en el que desarrollas ciudades o bases, inviertes en negocios y consigues recursos para seguir expandiendote.",
+    images: ["./src/assets/images/svg/ref-jellygo.svg"],
+    updatedAt: "2026-11-24T17:55:00Z"
+  },
+  {
+    id: "exp-006",
+    code: "EXP-006",
+    title: "Plataformas Sin Margen de Error",
+    column: "month1",
+    targetDate: "2027-02",
+    owner: "Ostrich Team",
+    refs: ["Golf It Over It!", "Bread & Fred", "Offline / Local"],
+    pitch: "Juego local o multijugador de precision extrema donde un fallo te devuelve literalmente al principio del recorrido.",
+    images: [
+      "./src/assets/images/jpg/bread-and-fred.jpg",
+      "./src/assets/images/jpg/golfing-over-it.jpg"
+    ],
+    updatedAt: "2026-11-24T17:55:00Z"
+  },
+  {
+    id: "exp-007",
+    code: "EXP-007",
+    title: "Decisiones en Diario / Red Social",
     column: "ideas",
-    targetDate: "2027-06",
-    owner: "Sara",
-    refs: ["Disco Elysium", "Papers Please"],
-    pitch: "Investigacion narrativa nocturna interceptando frecuencias de radio en una ciudad costera.",
-    images: ["./src/assets/images/svg/sample-noir.svg"],
-    updatedAt: "2026-11-23T18:00:00Z"
+    targetDate: "2027-03",
+    owner: "Ostrich Team",
+    refs: ["60 Seconds! Reatomized", "Narrativo", "Offline"],
+    pitch: "Juego offline donde tomas decisiones desde una zona estatica y cada eleccion tiene consecuencias directas reflejadas en un diario o red social.",
+    images: ["./src/assets/images/jpg/60-seconds-reatomized.jpg"],
+    updatedAt: "2026-11-24T17:55:00Z"
   }
 ];
 
