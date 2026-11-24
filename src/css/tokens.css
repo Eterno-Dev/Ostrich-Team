@@ -1,62 +1,52 @@
 :root {
-  /* Superficies base - Tablero de investigacion plano */
-  --bg-board: #F6F3EB;
-  --bg-surface: #FFFFFF;
-  --bg-panel: #FAF8F3;
-  --bg-ink: #1F2421;
-  --bg-ink-soft: #313834;
+  /* Paleta plana estilo catalogo Steam (cero degradados) */
+  --bg-page: #1B2838;
+  --bg-header: #171A21;
+  --bg-surface: #16202D;
+  --bg-elevated: #203042;
+  --bg-inset: #0F1922;
+  --bg-hover: #263B52;
 
   /* Texto */
-  --text-primary: #1F2421;
-  --text-secondary: #525B56;
-  --text-muted: #76807A;
-  --text-inverse: #FAF8F3;
+  --text-primary: #F0F4F8;
+  --text-secondary: #B8C4D0;
+  --text-muted: #7F91A3;
 
-  /* Bordes y sombras solidas (sin degradados) */
-  --border-ink: #242A26;
-  --border-subtle: #D8D2C5;
-  --shadow-card: 2px 2px 0 #1F2421;
-  --shadow-card-hover: 4px 4px 0 #1F2421;
-  --shadow-modal: 6px 6px 0 #1F2421;
+  /* Bordes */
+  --border-subtle: #2A3F54;
+  --border-strong: #3C5975;
 
-  /* Paleta pastel de columnas (inspirada en captura de referencia) */
-  --col-ideas-head: #F2B5B5;
-  --col-ideas-body: #FCEAEA;
-  --col-ideas-border: #D48E8E;
+  /* Acentos planos */
+  --accent-blue: #66C0F4;
+  --accent-blue-btn: #1A9FFF;
+  --accent-blue-btn-hover: #35AEFF;
+  --accent-green: #BEEE11;
+  --accent-green-bg: #4C6B22;
+  --accent-danger: #E06C75;
+  --accent-danger-bg: #3D1F24;
 
-  --col-month1-head: #9DD3E6;
-  --col-month1-body: #E2F3F8;
-  --col-month1-border: #72B1C7;
+  /* Etiquetas de duracion / categoria (planas) */
+  --tag-ideas-bg: #45294A;
+  --tag-ideas-fg: #E0B2E8;
 
-  --col-month2-head: #8FD5A6;
-  --col-month2-body: #DEF4E6;
-  --col-month2-border: #62B07D;
+  --tag-month1-bg: #4C6B22;
+  --tag-month1-fg: #BEEE11;
 
-  --col-large-head: #F4D06F;
-  --col-large-body: #FDF5D8;
-  --col-large-border: #CFA944;
+  --tag-month2-bg: #234966;
+  --tag-month2-fg: #66C0F4;
 
-  --col-archive-head: #D5A6DB;
-  --col-archive-body: #F5EAF7;
-  --col-archive-border: #AF7BB6;
+  --tag-large-bg: #5E4718;
+  --tag-large-fg: #F4D06F;
 
-  /* Estados */
-  --status-ok: #3B8C59;
-  --status-ok-bg: #DEF4E6;
-  --status-warn: #B88414;
-  --status-warn-bg: #FDF5D8;
-  --status-err: #C44545;
-  --status-err-bg: #FCEAEA;
+  --tag-archive-bg: #2D3640;
+  --tag-archive-fg: #9AA7B5;
 
   /* Tipografia */
-  --font-display: 'Barlow Condensed', 'Arial Narrow', Impact, sans-serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'IBM Plex Mono', 'Consolas', monospace;
 
-  /* Espaciado y radios */
   --radius-sm: 4px;
   --radius-md: 6px;
-  --radius-lg: 8px;
 }
 
 *,
@@ -72,9 +62,7 @@ body {
   min-height: 100%;
   font-family: var(--font-sans);
   color: var(--text-primary);
-  background-color: var(--bg-board);
-  background-image: url("../assets/images/svg/board-grid.svg");
-  background-repeat: repeat;
+  background-color: var(--bg-page);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -88,6 +76,10 @@ textarea {
 
 button {
   cursor: pointer;
+}
+
+a {
+  color: var(--accent-blue);
 }
 
 .hidden {

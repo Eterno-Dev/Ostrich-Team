@@ -1,6 +1,6 @@
 import { unlockVault, saveSession, loadSession, clearSession } from "./vault.js";
 import { createDataClient } from "./githubApi.js";
-import { renderBoard } from "./board.js";
+import { renderCategoryTabs, renderCatalog } from "./board.js";
 import { createModalController } from "./modal.js";
 
 const lockScreen = document.getElementById("lockScreen");
@@ -13,15 +13,17 @@ const loginBtn = document.getElementById("loginBtn");
 const syncPill = document.getElementById("syncPill");
 const syncText = document.getElementById("syncText");
 const searchInput = document.getElementById("searchInput");
-const ownerFilter = document.getElementById("ownerFilter");
 const syncBtn = document.getElementById("syncBtn");
 const newProjectBtn = document.getElementById("newProjectBtn");
 const logoutBtn = document.getElementById("logoutBtn");
-const kanbanBoard = document.getElementById("kanbanBoard");
+const categoryTabs = document.getElementById("categoryTabs");
+const catalogCount = document.getElementById("catalogCount");
+const gamesGrid = document.getElementById("gamesGrid");
 const toastEl = document.getElementById("toast");
 
 let dataClient = null;
 let projects = [];
+let activeCategory = "all";
 let modalCtrl = null;
 let toastTimer = null;
 
@@ -37,51 +39,25 @@ function setSyncState(state, label) {
   syncText.textContent = label;
 }
 
-function computeNextCode() {
-  let maxNum = 0;
-  for (const p of projects) {
-    const match = String(p.code || "").match(/(\d+)/);
-    if (match) {
-      const n = parseInt(match[1], 10);
-      if (n > maxNum) maxNum = n;
-    }
-  }
-  return `EXP-${String(maxNum + 1).padStart(3, "0")}`;
-}
-
-function refreshOwnerFilter() {
-  const prev = ownerFilter.value;
-  const set = new Set();
-  for (const p of projects) {
-    String(p.owner || "")
-      .split(",")
-      .map((s) => s.trim())
-      .filter(Boolean)
-      .forEach((name) => set.add(name));
-  }
-  const sorted = Array.from(set).sort((a, b) => a.localeCompare(b));
-  ownerFilter.innerHTML = `<option value="all">Todo el equipo</option>`;
-  for (const name of sorted) {
-    const opt = document.createElement("option");
-    opt.value = name;
-    opt.textContent = name;
-    ownerFilter.appendChild(opt);
-  }
-  if (Array.from(ownerFilter.options).some((o) => o.value === prev)) {
-    ownerFilter.value = prev;
-  }
-}
-
-function drawBoard() {
-  renderBoard({
-    container: kanbanBoard,
+function drawUI() {
+  renderCategoryTabs({
+    container: categoryTabs,
     projects,
+    activeCategory,
+    onSelect: (catId) => {
+      activeCategory = catId;
+      drawUI();
+    }
+  });
+
+  renderCatalog({
+    container: gamesGrid,
+    countEl: catalogCount,
+    projects,
+    activeCategory,
     searchQuery: searchInput.value,
-    ownerFilter: ownerFilter.value,
     resolveImageUrl: (src) => dataClient.resolveImageUrl(src),
-    onCardClick: (proj) => modalCtrl.open({ project: proj }),
-    onAddClick: (colId) => modalCtrl.open({ defaultColumn: colId, nextCode: computeNextCode() }),
-    onDropProject: handleDropProject
+    onCardClick: (proj) => modalCtrl.openDetail(proj)
   });
 }
 
@@ -89,30 +65,12 @@ async function persistProjects(commitMsg) {
   setSyncState("syncing", "Guardando...");
   try {
     await dataClient.saveProjects(projects, commitMsg);
-    if (dataClient.mode === "github") {
-      setSyncState("ok", `${dataClient.repo}`);
-    } else {
-      setSyncState("demo", "Local");
-    }
+    setSyncState(dataClient.mode === "github" ? "ok" : "demo", dataClient.mode === "github" ? "Sincronizado" : "Local");
   } catch (err) {
-    if (err.message === "CONFLICT") {
-      showToast("Cambio remoto detectado. Recargando...");
-      await syncNow(true);
-    } else {
-      setSyncState("error", "Error sync");
-      showToast(err.message || "No se pudo guardar");
-    }
+    setSyncState("error", "Sin conexion");
+    showToast(err.message || "No se pudo guardar");
+    throw err;
   }
-}
-
-async function handleDropProject(projectId, targetColumn) {
-  const item = projects.find((p) => p.id === projectId);
-  if (!item || item.column === targetColumn) return;
-  item.column = targetColumn;
-  item.updatedAt = new Date().toISOString();
-  drawBoard();
-  await persistProjects(`Mover ${item.code} a ${targetColumn}`);
-  showToast(`${item.code} movido`);
 }
 
 async function handleSaveProject(projectData) {
@@ -123,39 +81,32 @@ async function handleSaveProject(projectData) {
   } else {
     projects[idx] = projectData;
   }
-  refreshOwnerFilter();
-  drawBoard();
-  await persistProjects(isNew ? `Nuevo caso ${projectData.code}` : `Editar ${projectData.code}`);
-  showToast(isNew ? "Expediente creado" : "Expediente guardado");
+  drawUI();
+  await persistProjects(isNew ? `Nuevo juego: ${projectData.title}` : `Editar: ${projectData.title}`);
+  showToast(isNew ? "Juego añadido" : "Cambios guardados");
 }
 
 async function handleDeleteProject(projectId) {
   const item = projects.find((p) => p.id === projectId);
   projects = projects.filter((p) => p.id !== projectId);
-  refreshOwnerFilter();
-  drawBoard();
-  await persistProjects(`Eliminar ${item?.code || projectId}`);
-  showToast("Expediente eliminado");
+  drawUI();
+  await persistProjects(`Eliminar: ${item?.title || projectId}`);
+  showToast("Juego eliminado");
 }
 
 async function syncNow(silent = false) {
   if (!dataClient) return;
-  setSyncState("syncing", "Sincronizando...");
+  setSyncState("syncing", "Actualizando...");
   try {
     const res = await dataClient.loadProjects({ conditional: false });
     if (res.projects) {
       projects = res.projects;
-      refreshOwnerFilter();
-      drawBoard();
+      drawUI();
     }
-    if (dataClient.mode === "github") {
-      setSyncState("ok", `${dataClient.repo}`);
-    } else {
-      setSyncState("demo", "Local");
-    }
-    if (!silent) showToast("Tablero sincronizado");
+    setSyncState(dataClient.mode === "github" ? "ok" : "demo", dataClient.mode === "github" ? "Sincronizado" : "Local");
+    if (!silent) showToast("Catalogo actualizado");
   } catch (err) {
-    setSyncState("error", "Error sync");
+    setSyncState("error", "Sin conexion");
     showToast(err.message || "Fallo de conexion");
   }
 }
@@ -179,11 +130,9 @@ async function startApp(sessionConfig) {
   if (dataClient.mode === "github") {
     dataClient.startPolling((updatedProjects) => {
       projects = updatedProjects;
-      refreshOwnerFilter();
-      drawBoard();
-      setSyncState("ok", `${dataClient.repo}`);
-      showToast("Actualizado por el equipo");
-    }, 15000);
+      drawUI();
+      setSyncState("ok", "Sincronizado");
+    }, 20000);
   }
 }
 
@@ -199,21 +148,18 @@ loginForm.addEventListener("submit", async (e) => {
     passwordInput.value = "";
     await startApp(config);
   } catch (_) {
-    loginError.textContent = "Clave incorrecta. Intentalo de nuevo.";
+    loginError.textContent = "Clave incorrecta.";
     loginError.classList.remove("hidden");
     passwordInput.select();
   } finally {
     loginBtn.disabled = false;
-    loginBtn.textContent = "Desbloquear tablero";
+    loginBtn.textContent = "Entrar";
   }
 });
 
-searchInput.addEventListener("input", drawBoard);
-ownerFilter.addEventListener("change", drawBoard);
+searchInput.addEventListener("input", drawUI);
 syncBtn.addEventListener("click", () => syncNow(false));
-newProjectBtn.addEventListener("click", () => {
-  modalCtrl.open({ defaultColumn: "ideas", nextCode: computeNextCode() });
-});
+newProjectBtn.addEventListener("click", () => modalCtrl.openCreate());
 
 logoutBtn.addEventListener("click", () => {
   if (dataClient) dataClient.stopPolling();
@@ -223,7 +169,6 @@ logoutBtn.addEventListener("click", () => {
   passwordInput.focus();
 });
 
-// Restaurar sesion activa en la pestaña actual si ya se desbloqueo
 const existingSession = loadSession();
 if (existingSession) {
   startApp(existingSession);
