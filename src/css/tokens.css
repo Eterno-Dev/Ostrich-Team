@@ -1,0 +1,95 @@
+:root {
+  /* Superficies base - Tablero de investigacion plano */
+  --bg-board: #F6F3EB;
+  --bg-surface: #FFFFFF;
+  --bg-panel: #FAF8F3;
+  --bg-ink: #1F2421;
+  --bg-ink-soft: #313834;
+
+  /* Texto */
+  --text-primary: #1F2421;
+  --text-secondary: #525B56;
+  --text-muted: #76807A;
+  --text-inverse: #FAF8F3;
+
+  /* Bordes y sombras solidas (sin degradados) */
+  --border-ink: #242A26;
+  --border-subtle: #D8D2C5;
+  --shadow-card: 2px 2px 0 #1F2421;
+  --shadow-card-hover: 4px 4px 0 #1F2421;
+  --shadow-modal: 6px 6px 0 #1F2421;
+
+  /* Paleta pastel de columnas (inspirada en captura de referencia) */
+  --col-ideas-head: #F2B5B5;
+  --col-ideas-body: #FCEAEA;
+  --col-ideas-border: #D48E8E;
+
+  --col-month1-head: #9DD3E6;
+  --col-month1-body: #E2F3F8;
+  --col-month1-border: #72B1C7;
+
+  --col-month2-head: #8FD5A6;
+  --col-month2-body: #DEF4E6;
+  --col-month2-border: #62B07D;
+
+  --col-large-head: #F4D06F;
+  --col-large-body: #FDF5D8;
+  --col-large-border: #CFA944;
+
+  --col-archive-head: #D5A6DB;
+  --col-archive-body: #F5EAF7;
+  --col-archive-border: #AF7BB6;
+
+  /* Estados */
+  --status-ok: #3B8C59;
+  --status-ok-bg: #DEF4E6;
+  --status-warn: #B88414;
+  --status-warn-bg: #FDF5D8;
+  --status-err: #C44545;
+  --status-err-bg: #FCEAEA;
+
+  /* Tipografia */
+  --font-display: 'Barlow Condensed', 'Arial Narrow', Impact, sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Consolas', monospace;
+
+  /* Espaciado y radios */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  background-color: var(--bg-board);
+  background-image: url("../assets/images/svg/board-grid.svg");
+  background-repeat: repeat;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none !important;
+}

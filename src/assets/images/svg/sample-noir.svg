@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" fill="#261F2B"/>
+  <rect x="40" y="264" width="560" height="16" fill="#D5A6DB"/>
+  <rect x="110" y="110" width="84" height="154" fill="#3B3145"/>
+  <rect x="220" y="70" width="110" height="194" fill="#4C3E59"/>
+  <rect x="360" y="132" width="96" height="132" fill="#3B3145"/>
+  <rect x="480" y="92" width="76" height="172" fill="#4C3E59"/>
+  <rect x="246" y="102" width="22" height="22" fill="#F4D06F"/>
+  <rect x="284" y="102" width="22" height="22" fill="#F4D06F"/>
+  <rect x="246" y="144" width="22" height="22" fill="#9DD3E6"/>
+  <rect x="284" y="186" width="22" height="22" fill="#F2B5B5"/>
+  <circle cx="536" cy="54" r="24" fill="#FAF8F3"/>
+  <rect x="44" y="32" width="144" height="26" fill="#D5A6DB"/>
+  <text x="58" y="50" fill="#261F2B" font-family="monospace" font-size="14" font-weight="700">REF // NOIR RPG</text>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" fill="#232931"/>
+  <rect x="0" y="250" width="640" height="110" fill="#181C22"/>
+  <circle cx="490" cy="96" r="46" fill="#F4D06F"/>
+  <path d="M0 250L120 148L225 250H0Z" fill="#394452"/>
+  <path d="M170 250L315 112L465 250H170Z" fill="#2E3844"/>
+  <path d="M400 250L530 165L640 250H400Z" fill="#394452"/>
+  <rect x="292" y="198" width="28" height="52" fill="#F2B5B5"/>
+  <rect x="298" y="210" width="16" height="16" fill="#181C22"/>
+  <rect x="96" y="280" width="180" height="10" fill="#9DD3E6"/>
+  <rect x="96" y="302" width="110" height="8" fill="#8FD5A6"/>
+  <rect x="44" y="36" width="118" height="26" fill="#F2B5B5"/>
+  <text x="58" y="54" fill="#181C22" font-family="monospace" font-size="14" font-weight="700">REF // DUNGEON</text>
+</svg>

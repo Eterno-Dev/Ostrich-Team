@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ostrich Team — Configurar Repositorio Privado</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/svg/ostrich-logo.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/tokens.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <style>
+    .setup-wrap {
+      max-width: 680px;
+      margin: 28px auto;
+      padding: 0 18px 36px;
+    }
+    .setup-card {
+      background-color: var(--bg-surface);
+      border: 2px solid var(--border-ink);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-modal);
+      overflow: hidden;
+    }
+    .setup-banner {
+      background-color: var(--col-month1-head);
+      border-bottom: 2px solid var(--border-ink);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .setup-banner h1 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 24px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .setup-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .code-output {
+      width: 100%;
+      min-height: 150px;
+      padding: 12px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      background-color: var(--bg-ink);
+      color: var(--text-inverse);
+      border: 2px solid var(--border-ink);
+      border-radius: var(--radius-sm);
+      resize: vertical;
+    }
+    .setup-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .setup-note {
+      padding: 10px 12px;
+      font-size: 12.5px;
+      background-color: var(--col-large-body);
+      border: 1.5px solid var(--col-large-border);
+      border-radius: var(--radius-sm);
+    }
+  </style>
+</head>
+<body>
+  <main class="setup-wrap">
+    <section class="setup-card">
+      <div class="setup-banner">
+        <h1>Boveda GitHub Privada</h1>
+        <a href="../../index.html" class="btn">Volver</a>
+      </div>
+
+      <div class="setup-body">
+        <div class="setup-note">
+          Cifra tu token de GitHub (Fine-Grained PAT con permiso <strong>Contents: Read &amp; Write</strong> solo en el repo privado) usando AES-256-GCM. El token y la clave nunca quedan en texto plano.
+        </div>
+
+        <form id="setupForm" class="form-grid">
+          <div class="form-field">
+            <label for="ghOwner" class="form-label">Usuario u organizacion GitHub</label>
+            <input id="ghOwner" class="form-input" type="text" placeholder="Ej: OstrichTeam" required />
+          </div>
+
+          <div class="form-field">
+            <label for="ghRepo" class="form-label">Repositorio privado de datos</label>
+            <input id="ghRepo" class="form-input" type="text" placeholder="Ej: ostrich-team-data" required />
+          </div>
+
+          <div class="form-field">
+            <label for="ghBranch" class="form-label">Rama</label>
+            <input id="ghBranch" class="form-input" type="text" value="main" required />
+          </div>
+
+          <div class="form-field">
+            <label for="vaultPassword" class="form-label">Clave de equipo</label>
+            <input id="vaultPassword" class="form-input" type="password" placeholder="Ej: Ostrich123456" required />
+          </div>
+
+          <div class="form-field full">
+            <label for="ghToken" class="form-label">Fine-Grained Personal Access Token</label>
+            <input id="ghToken" class="form-input" type="password" placeholder="github_pat_..." required />
+          </div>
+
+          <div class="form-field full setup-actions">
+            <button type="submit" class="btn btn-primary">Generar boveda cifrada</button>
+            <button id="testConnBtn" type="button" class="btn">Probar conexion</button>
+          </div>
+        </form>
+
+        <div id="setupStatus" class="form-error hidden"></div>
+
+        <div id="resultBlock" class="hidden">
+          <label for="vaultOutput" class="form-label">Reemplaza src/js/vault.js con este archivo</label>
+          <textarea id="vaultOutput" class="code-output" readonly></textarea>
+          <div class="setup-actions" style="margin-top: 10px;">
+            <button id="copyVaultBtn" type="button" class="btn btn-accent">Copiar codigo</button>
+            <button id="downloadVaultBtn" type="button" class="btn">Descargar vault.js</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="../js/setup.js"></script>
+</body>
+</html>
